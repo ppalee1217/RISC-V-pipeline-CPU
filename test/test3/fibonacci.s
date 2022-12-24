@@ -1,14 +1,14 @@
 .data
-num_test: .word 4
+num_test: .word 3
 test1: .word 1
 test2: .word 0
 test3: .word 10
-test4: .word 15
 store: .word 0x9000
+
 .text
-setup:
-  li    ra, -1
-  li    sp, 0xfff0
+.globl main
+
+.text
 main:
   # answer is 1, 0, 55, 610, 6765 
   ####
