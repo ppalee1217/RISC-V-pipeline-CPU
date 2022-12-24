@@ -13,7 +13,6 @@ module IM(
     end
     // Load(DM) or Read instructions(IM)-> Combinational
     always @(*) begin
-        read_data = 32'bz;
         if (w_en == 4'b0) begin
             read_data = {mem[address+3], mem[address+2], mem[address+1], mem[address]};
         end

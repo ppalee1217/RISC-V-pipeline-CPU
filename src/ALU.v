@@ -134,6 +134,10 @@ module ALU(
             end
             // output operand1 + operand2
             I_Load , Store , U_auipc: begin
+                if(!U_auipc) begin
+                    $display("(Stage 3)Operand1: 0x%h, Operand2: 0x%h", operand1, operand2);
+                    $display("(Stage 3)Load/Store position: 0x%h", (operand1 + operand2));
+                end
                 alu_out = operand1 + operand2;
             end
             // output = imme

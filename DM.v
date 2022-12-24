@@ -7,10 +7,13 @@ module DM(
     input [31:0] write_data,
     output reg [31:0] read_data
     );
+    integer i;
     reg [7:0] mem [0:65535];
     // Read instruction hex from file
     initial begin
       $readmemh(`DATA_HEX_NAME, mem);
+      //for(i=0;i<16383;i=i+4)
+        //$display("MEM[%d] = 0x%h", i, {mem[i+3], mem[i+2], mem[i+1], mem[i]});
     end
     // Load(DM) or Read instructions(IM)-> Combinational
     always @(*) begin
@@ -33,6 +36,8 @@ module DM(
         if (w_en[3]) begin
             mem[address + 16'd3] <= write_data[31:24];
         end
+        if(w_en[0] && w_en[1] && w_en[2] && w_en[3])
+        $display("(Stage 4)MEM[%d] <- 0x%h", address, write_data);
     end
 
 

@@ -18,6 +18,7 @@ module RegFile(
     always @(posedge clk) begin
         if (rd_index != 5'd0) begin
             if (wb_en) begin
+                $display("(Stage 5)rs[%d] <- 0x%h", rd_index, wb_data);
                 registers[rd_index] <= wb_data;
             end
         end

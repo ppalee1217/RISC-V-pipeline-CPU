@@ -65,12 +65,12 @@ module tb;
     // Load Golden Reg data
     $readmemh(`GOLDEN_REG_HEX_NAME, regVal);
     // Load Golden Mem data
-    $display("Load Golden Mem data...");
+    //$display("Load Golden Mem data...");
     num = 0;
     gfm = $fopen(`GOLDEN_MEM_HEX_NAME, "r");
     while (!$feof(gfm)) begin
       $fscanf(gfm, "%h\n", memVal[num]);
-      $display("memVal[%d] = %h", num, memVal[num]);
+      //$display("memVal[%d] = %h", num, memVal[num]);
       num = num + 1;
     end
     $fclose(gfm);
@@ -156,30 +156,30 @@ module tb;
 
   // Print out current status
   always @(inst_IF or rst) begin
-    $display("PC: %d",current_pc);
-    $display("Instruction:\t0x%h",inst_IF);
-    $display("Alu Result:\t0x%h",reg_ex_mem_alu_out_out);
-    $display("Data address:\t0x%h",reg_ex_mem_alu_out_out[15:0]);
-    $display("Data Output (from CPU to memory): 0x%h", reg_ex_mem_rs2_data_out);
-    `ifdef syn
-      $display("Reg[ 0]: %h Reg[ 1]: %h Reg[ 2]: %h Reg[ 3]: %h",CPU.regfile.\registers[0], CPU.regfile.\registers[1], CPU.regfile.\registers[2], CPU.regfile.\registers[3]);
-      $display("Reg[ 4]: %h Reg[ 5]: %h Reg[ 6]: %h Reg[ 7]: %h",CPU.regfile.\registers[4], CPU.regfile.\registers[5], CPU.regfile.\registers[6], CPU.regfile.\registers[7]);
-      $display("Reg[ 8]: %h Reg[ 9]: %h Reg[ 10]: %h Reg[ 11]: %h",CPU.regfile.\registers[8], CPU.regfile.\registers[9], CPU.regfile.\registers[10], CPU.regfile.\registers[11]);
-      $display("Reg[12]: %h Reg[13]: %h Reg[14]: %h Reg[15]: %h",CPU.regfile.\registers[12], CPU.regfile.\registers[13], CPU.regfile.\registers[14], CPU.regfile.\registers[15]);
-      $display("Reg[16]: %h Reg[17]: %h Reg[18]: %h Reg[19]: %h",CPU.regfile.\registers[16], CPU.regfile.\registers[17], CPU.regfile.\registers[18], CPU.regfile.\registers[19]);
-      $display("Reg[20]: %h Reg[21]: %h Reg[22]: %h Reg[23]: %h",CPU.regfile.\registers[20], CPU.regfile.\registers[21], CPU.regfile.\registers[22], CPU.regfile.\registers[23]);
-      $display("Reg[24]: %h Reg[25]: %h Reg[26]: %h Reg[27]: %h",CPU.regfile.\registers[24], CPU.regfile.\registers[25], CPU.regfile.\registers[26], CPU.regfile.\registers[27]);
-      $display("Reg[28]: %h Reg[29]: %h Reg[30]: %h Reg[31]: %h",CPU.regfile.\registers[28], CPU.regfile.\registers[29], CPU.regfile.\registers[30], CPU.regfile.\registers[31]);
-    `else
-      $display("Reg[ 0]: %h Reg[ 1]: %h Reg[ 2]: %h Reg[ 3]: %h",CPU.regfile.registers[0], CPU.regfile.registers[1], CPU.regfile.registers[2], CPU.regfile.registers[3]);
-      $display("Reg[ 4]: %h Reg[ 5]: %h Reg[ 6]: %h Reg[ 7]: %h",CPU.regfile.registers[4], CPU.regfile.registers[5], CPU.regfile.registers[6], CPU.regfile.registers[7]);
-      $display("Reg[ 8]: %h Reg[ 9]: %h Reg[10]: %h Reg[11]: %h",CPU.regfile.registers[8], CPU.regfile.registers[9], CPU.regfile.registers[10], CPU.regfile.registers[11]);
-      $display("Reg[12]: %h Reg[13]: %h Reg[14]: %h Reg[15]: %h",CPU.regfile.registers[12], CPU.regfile.registers[13], CPU.regfile.registers[14], CPU.regfile.registers[15]);
-      $display("Reg[16]: %h Reg[17]: %h Reg[18]: %h Reg[19]: %h",CPU.regfile.registers[16], CPU.regfile.registers[17], CPU.regfile.registers[18], CPU.regfile.registers[19]);
-      $display("Reg[20]: %h Reg[21]: %h Reg[22]: %h Reg[23]: %h",CPU.regfile.registers[20], CPU.regfile.registers[21], CPU.regfile.registers[22], CPU.regfile.registers[23]);
-      $display("Reg[24]: %h Reg[25]: %h Reg[26]: %h Reg[27]: %h",CPU.regfile.registers[24], CPU.regfile.registers[25], CPU.regfile.registers[26], CPU.regfile.registers[27]);
-      $display("Reg[28]: %h Reg[29]: %h Reg[30]: %h Reg[31]: %h",CPU.regfile.registers[28], CPU.regfile.registers[29], CPU.regfile.registers[30], CPU.regfile.registers[31]);
-    `endif
+    $display("PC: 0x%h",current_pc);
+    $display("Instruction: 0x%h",inst_IF);
+    // $display("Alu Result:\t0x%h",reg_ex_mem_alu_out_out);
+    // $display("Data address:\t0x%h",reg_ex_mem_alu_out_out[15:0]);
+    // $display("Data Output (from CPU to memory): 0x%h", reg_ex_mem_rs2_data_out);
+    // `ifdef syn
+    //   $display("Reg[ 0]: %h Reg[ 1]: %h Reg[ 2]: %h Reg[ 3]: %h",CPU.regfile.\registers[0], CPU.regfile.\registers[1], CPU.regfile.\registers[2], CPU.regfile.\registers[3]);
+    //   $display("Reg[ 4]: %h Reg[ 5]: %h Reg[ 6]: %h Reg[ 7]: %h",CPU.regfile.\registers[4], CPU.regfile.\registers[5], CPU.regfile.\registers[6], CPU.regfile.\registers[7]);
+    //   $display("Reg[ 8]: %h Reg[ 9]: %h Reg[ 10]: %h Reg[ 11]: %h",CPU.regfile.\registers[8], CPU.regfile.\registers[9], CPU.regfile.\registers[10], CPU.regfile.\registers[11]);
+    //   $display("Reg[12]: %h Reg[13]: %h Reg[14]: %h Reg[15]: %h",CPU.regfile.\registers[12], CPU.regfile.\registers[13], CPU.regfile.\registers[14], CPU.regfile.\registers[15]);
+    //   $display("Reg[16]: %h Reg[17]: %h Reg[18]: %h Reg[19]: %h",CPU.regfile.\registers[16], CPU.regfile.\registers[17], CPU.regfile.\registers[18], CPU.regfile.\registers[19]);
+    //   $display("Reg[20]: %h Reg[21]: %h Reg[22]: %h Reg[23]: %h",CPU.regfile.\registers[20], CPU.regfile.\registers[21], CPU.regfile.\registers[22], CPU.regfile.\registers[23]);
+    //   $display("Reg[24]: %h Reg[25]: %h Reg[26]: %h Reg[27]: %h",CPU.regfile.\registers[24], CPU.regfile.\registers[25], CPU.regfile.\registers[26], CPU.regfile.\registers[27]);
+    //   $display("Reg[28]: %h Reg[29]: %h Reg[30]: %h Reg[31]: %h",CPU.regfile.\registers[28], CPU.regfile.\registers[29], CPU.regfile.\registers[30], CPU.regfile.\registers[31]);
+    // `else
+    //   $display("Reg[ 0]: %h Reg[ 1]: %h Reg[ 2]: %h Reg[ 3]: %h",CPU.regfile.registers[0], CPU.regfile.registers[1], CPU.regfile.registers[2], CPU.regfile.registers[3]);
+    //   $display("Reg[ 4]: %h Reg[ 5]: %h Reg[ 6]: %h Reg[ 7]: %h",CPU.regfile.registers[4], CPU.regfile.registers[5], CPU.regfile.registers[6], CPU.regfile.registers[7]);
+    //   $display("Reg[ 8]: %h Reg[ 9]: %h Reg[10]: %h Reg[11]: %h",CPU.regfile.registers[8], CPU.regfile.registers[9], CPU.regfile.registers[10], CPU.regfile.registers[11]);
+    //   $display("Reg[12]: %h Reg[13]: %h Reg[14]: %h Reg[15]: %h",CPU.regfile.registers[12], CPU.regfile.registers[13], CPU.regfile.registers[14], CPU.regfile.registers[15]);
+    //   $display("Reg[16]: %h Reg[17]: %h Reg[18]: %h Reg[19]: %h",CPU.regfile.registers[16], CPU.regfile.registers[17], CPU.regfile.registers[18], CPU.regfile.registers[19]);
+    //   $display("Reg[20]: %h Reg[21]: %h Reg[22]: %h Reg[23]: %h",CPU.regfile.registers[20], CPU.regfile.registers[21], CPU.regfile.registers[22], CPU.regfile.registers[23]);
+    //   $display("Reg[24]: %h Reg[25]: %h Reg[26]: %h Reg[27]: %h",CPU.regfile.registers[24], CPU.regfile.registers[25], CPU.regfile.registers[26], CPU.regfile.registers[27]);
+    //   $display("Reg[28]: %h Reg[29]: %h Reg[30]: %h Reg[31]: %h",CPU.regfile.registers[28], CPU.regfile.registers[29], CPU.regfile.registers[30], CPU.regfile.registers[31]);
+    // `endif
     $display("===================================================");
   end
 endmodule

@@ -21,6 +21,7 @@ module Reg_ID_EX (
             sext_imm_out <= 32'd0;
         end
         else begin
+            $display("(Stage 2)rs1_data = 0x%h, rs2_data = 0x%h, sext_imm = 0x%h", rs1_data_in, rs2_data_in, sext_imm_in);
             current_pc_out <= current_pc_in;
             rs1_data_out <= rs1_data_in;
             rs2_data_out <= rs2_data_in;
