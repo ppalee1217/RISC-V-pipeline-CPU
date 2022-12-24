@@ -1,4 +1,4 @@
-`define DATA_HEX_NAME "./test/test2/data.hex"
+`define DATA_HEX_NAME "./test/test3/data.hex"
 
 module DM(
     input clk,
@@ -6,7 +6,7 @@ module DM(
     input [15:0] address,
     input [31:0] write_data,
     output reg [31:0] read_data
-    );10000 9000
+    );
     reg [7:0] mem [0:65535];
     // Read instruction hex from file
     initial begin

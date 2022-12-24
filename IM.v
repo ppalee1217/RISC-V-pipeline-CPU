@@ -1,4 +1,4 @@
-`define INST_HEX_NAME "./test/test2/mergesort.hex"
+`define INST_HEX_NAME "./test/test3/fibonacci.hex"
 module IM(
     input clk,
     input [3:0] w_en,

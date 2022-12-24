@@ -8,7 +8,7 @@ store: .word 0x9000
 .text
 setup:
   li    ra, -1
-  li    sp, 0xffff
+  li    sp, 0xfff0
 main:
   # answer is 1, 0, 55, 610, 6765 
   ####

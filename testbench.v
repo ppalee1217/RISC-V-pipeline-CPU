@@ -7,8 +7,8 @@
 `else
   `include "CPU.v"
 `endif
-`define GOLDEN_REG_HEX_NAME "./test/test2/golden_reg.hex"
-`define GOLDEN_MEM_HEX_NAME "./test/test2/golden_mem.hex"
+`define GOLDEN_REG_HEX_NAME "./test/test3/golden_reg.hex"
+`define GOLDEN_MEM_HEX_NAME "./test/test3/golden_mem.hex"
 `define ANSWER_START 'h9000
 `define mem_word(addr) \
   {DM.mem[addr+3], \
@@ -70,7 +70,7 @@ module tb;
     gfm = $fopen(`GOLDEN_MEM_HEX_NAME, "r");
     while (!$feof(gfm)) begin
       $fscanf(gfm, "%h\n", memVal[num]);
-      $display("memVal[%h] = %h", num, memVal[num]);
+      $display("memVal[%d] = %h", num, memVal[num]);
       num = num + 1;
     end
     $fclose(gfm);
@@ -82,7 +82,7 @@ module tb;
     clk = 0;
     rst = 1;
     #(CLK_PERIOD*4);
-    rst = 0;
+    @(posedge clk) rst = 0;
     $display("----------------------");
     $display("-- Simulation Start --");
     $display("----------------------");
@@ -95,10 +95,10 @@ module tb;
   end
 
   // Generate waveform
-  // initial begin
-  //   $dumpfile("wave.fsdb");
-  //   $dumpvars;
-  // end
+  initial begin
+    $dumpfile("wave.fsdb");
+    $dumpvars;
+  end
 
   // Stop simulation when inst_IF is all X
   always @(posedge clk) begin

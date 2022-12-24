@@ -13,7 +13,7 @@ test3_Addr: .word 0x90d4
 .text
 setup:
     li    ra, -1
-    li    sp, 0x7ffffff0
+    li    sp, 0xfff0
 main:
     ####
     # s6: test data input address
@@ -167,7 +167,7 @@ mergeSort:
     mv a2, t2               # pass mid index
     mv a4, s1               # pass result address
     mv a3, t1               # pass end index
-    li s2, 0x01000500       # pass temp array address
+    li s2, 0x7500       # pass temp array address
     ## Call function
     jal ra, merge           # ra = Addr(lw ra, 28(sp))
     
@@ -180,7 +180,7 @@ mergeSort:
 returnLabel:
     ret
 merge:
-    ## temp array store data in 0x01000500
+    ## temp array store data in 0x00007500
     ####
     # s0: init array address
     # s1: result address
@@ -468,14 +468,14 @@ passArray:
     ## start ~ mid
     mv a1, t0
     mv a2, t1
-    li s1 0x01000500               # Let temp address = 0x01000500 
+    li s1 0x7500               # Let temp address = 0x7500 
     jal ra, passInit               # ra = Addr(jal ra, passResult)
     jal ra, passResult             # ra = Addr(addi t4, t1, 1)
     addi t4, t1, 1                 # let t4 = mid + 1
     ## mid + 1 ~ end
     mv a1, t4
     mv a2, t2
-    li s1 0x01000500               # Let temp address = 0x01000500 
+    li s1 0x7500               # Let temp address = 0x7500 
     jal ra, passInit               # ra = Addr(jal ra, passResult)
     jal ra, passResult             # ra = Addr(ret)
     # Retrieve ra

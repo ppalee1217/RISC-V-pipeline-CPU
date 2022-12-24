@@ -10,7 +10,7 @@ six:
 .text
 setup:
   li    ra, -1
-  li    sp, 0xffff
+  li    sp, 0xfff0
 main:
   la t0, bound
   lw t1, 0(t0)

@@ -5,8 +5,11 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	IM
 
-} {} {}} C:/Users/ppalee/Desktop/Final/Final/CPU.v {1 {vlog -work work -vopt C:/Users/ppalee/Desktop/Final/Final/CPU.v
+} {} {}} C:/Users/ppalee/Desktop/Final/Final/CPU.v {2 {vlog -work work -vopt C:/Users/ppalee/Desktop/Final/Final/CPU.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+** Warning: (vlog-6) -- Waiting for lock by "ppalee@MSI, pid = 27108
+". Lockfile is "C:/Users/ppalee/Desktop/Final/Final/work/_lock".
+
 -- Compiling module ALU
 -- Compiling module Controller
 -- Compiling module Decoder
@@ -25,5 +28,12 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 
 Top level modules:
 	CPU
+
+} {} {}} C:/Users/ppalee/Desktop/Final/Final/DM.v {1 {vlog -work work -vopt C:/Users/ppalee/Desktop/Final/Final/DM.v
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module DM
+
+Top level modules:
+	DM
 
 } {} {}}
