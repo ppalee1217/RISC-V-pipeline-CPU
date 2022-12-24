@@ -1,0 +1,9 @@
+#!/bin/sh -h 
+PYTHONHOME=/usr/cad/synopsys/vcs-mx/cur/etc/search/pyh
+export PYTHONHOME
+PYTHONPATH=/usr/cad/synopsys/vcs-mx/cur/linux64/lib/pylib27
+export PYTHONPATH
+LD_LIBRARY_PATH=/usr/cad/synopsys/vcs-mx/cur/linux64/lib:/usr/cad/synopsys/vcs-mx/cur/linux64/lib/pylib27
+export LD_LIBRARY_PATH
+/usr/cad/synopsys/vcs-mx/cur/linux64/bin/vcsfind_create_index.exe  -z  "/home/ncku_class/vsd2022/vsd202205/Final/simv.daidir/debug_dump/fsearch/./idents_6x6wid.xml.gz" -o "/home/ncku_class/vsd2022/vsd202205/Final/simv.daidir/debug_dump/fsearch/fsearch.db_tmp"
+\mv "/home/ncku_class/vsd2022/vsd202205/Final/simv.daidir/debug_dump/fsearch/fsearch.db_tmp" "/home/ncku_class/vsd2022/vsd202205/Final/simv.daidir/debug_dump/fsearch/fsearch.db"

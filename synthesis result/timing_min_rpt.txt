@@ -1,0 +1,47 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay min
+        -max_paths 1
+        -sort_by group
+Design : CPU
+Version: Q-2019.12
+Date   : Tue Dec 20 15:11:52 2022
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: fast   Library: fast
+Wire Load Model Mode: top
+
+  Startpoint: dm_read_data[0]
+              (input port clocked by clk)
+  Endpoint: reg_mem_wb/ld_data_out_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   5.00       5.00
+  clock network delay (ideal)                             0.00       5.00
+  input external delay                                    0.20       5.20 f
+  dm_read_data[0] (in)                                    0.01       5.21 f
+  reg_mem_wb/ld_data_in[0] (Reg_MEM_WB)                   0.00       5.21 f
+  reg_mem_wb/ld_data_out_reg[0]/D (DFFRHQX1)              0.00       5.21 f
+  data arrival time                                                  5.21
+
+  clock clk (rise edge)                                   5.00       5.00
+  clock network delay (ideal)                             0.00       5.00
+  reg_mem_wb/ld_data_out_reg[0]/CK (DFFRHQX1)             0.00       5.00 r
+  library hold time                                      -0.02       4.98
+  data required time                                                 4.98
+  --------------------------------------------------------------------------
+  data required time                                                 4.98
+  data arrival time                                                 -5.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.23
+
+
+1

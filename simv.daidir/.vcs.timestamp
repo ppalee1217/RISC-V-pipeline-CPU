@@ -1,0 +1,106 @@
+0 
+28
++itf+/usr/cad/synopsys/vcs-mx/cur/linux64/lib/vcsdp_lite.tab
++vcsd1
++vpi
+-Mamsrun=
+-Masflags=
+-Mcc=gcc
+-Mcfl= -pipe -fPIC -O -I/usr/cad/synopsys/vcs-mx/cur/include
+-Mcplusplus=g++
+-Mcrt0=
+-Mcrtn=
+-Mcsrc=
+-Mexternalobj=
+-Mldflags= -rdynamic
+-Mobjects= /usr/cad/synopsys/vcs-mx/cur/linux64/lib/libvirsim.so /usr/cad/synopsys/vcs-mx/cur/linux64/lib/liberrorinf.so /usr/cad/synopsys/vcs-mx/cur/linux64/lib/libsnpsmalloc.so /usr/cad/synopsys/vcs-mx/cur/linux64/lib/libvfs.so
+-Mout=simv
+-Msaverestoreobj=/usr/cad/synopsys/vcs-mx/cur/linux64/lib/vcs_save_restore_new.o
+-Msyslibs=-ldl
+-Mvcsaceobjs=
+-Mxcflags= -pipe -fPIC -I/usr/cad/synopsys/vcs-mx/cur/include
+-Xvcs_run_simv=1
+-debug_access+all+v2k
+-full64
+-gen_obj
+-l
+-picarchive
+/usr/cad/synopsys/vcs-mx/cur/linux64/bin/vcs1
+CPU.v
+vcs.log
+49
+sysc_uni_pwd=/home/ncku_class/vsd2022/vsd202205/Final
+VMR_MODE_FLAG=64
+VENDOR=unknown
+VCS_MX_HOME_INTERNAL=1
+VCS_MODE_FLAG=64
+VCS_LOG_FILE=vcs.log
+VCS_HOME=/usr/cad/synopsys/vcs-mx/cur
+VCS_DEPTH=0
+VCS_CC=gcc
+VCS_ARG_ADDED_FOR_TMP=1
+VCS_ARCH=linux64
+UNAME=/bin/uname
+TOOL_HOME=/usr/cad/synopsys/vcs-mx/cur/linux64
+SYN_MAN_DIR=/usr/cad/synopsys/synthesis/cur/doc/syn/man
+SYNTHESIS=/usr/cad/synopsys/synthesis/cur
+SYNOPSYS_SYN_ROOT=/usr/cad/synopsys/synthesis/cur/
+SYNOPSYS_LC_ROOT=/usr/cad/synopsys/lc/cur
+SYNOPSYS=/usr/cad/synopsys/synthesis/cur/
+STARTUP=gnome-session
+SSH_CONNECTION=127.0.0.1 35248 127.0.0.1 22
+SSH_CLIENT=127.0.0.1 35248 22
+SSH_AUTH_SOCK=/tmp/keyring-J51Krf/socket.ssh
+SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
+SNPSPHY_LIC_SET=TRUE
+SLAVE_PID=24121
+SHLIB_PATH=/usr/cad/synopsys/verdi/cur/etc/lib/libstdc++/LINUX64/
+SHADOW_XAUTHORITY=/home/ncku_class/vsd2022/vsd202205/.nx/C-tsri-svr-2008-B0856E4784E57B17B3CA2A01F6A6396C/authority
+SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/24873,unix/unix:/tmp/.ICE-unix/24873
+SCRNAME=vcs
+SCRIPT_NAME=vcs
+QTLIB=/usr/lib64/qt-3.3/lib
+QTINC=/usr/lib64/qt-3.3/include
+QTDIR=/usr/lib64/qt-3.3
+OVA_UUM=0
+OSTYPE=linux
+ORBIT_SOCKETDIR=/tmp/orbit-vsd202205
+NXSESSIONID=tsri-svr-2008-B0856E4784E57B17B3CA2A01F6A6396C
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+LC_ALL=C
+HOSTTYPE=x86_64-linux
+HISTCONTROL=ignoredups
+G_BROKEN_FILENAMES=1
+GTK_RC_FILES=/etc/gtk/gtkrc:/home/ncku_class/vsd2022/vsd202205/.gtkrc-1.2-gnome2
+GROUP=ncku_class
+GNOME_KEYRING_SOCKET=/tmp/keyring-J51Krf/socket
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-qwjfd1Z38c,guid=e43e3f16647d6d35471d59c700088c3d
+CVS_RSH=ssh
+COLORTERM=gnome-terminal
+0
+17
+1640591814 ./src/SRAM.v
+1640914024 ./src/RegFile.v
+1642391292 ./src/Reg_PC.v
+1642509792 ./src/Reg_MEM_WB.v
+1642511150 ./src/Reg_IF_ID.v
+1642485980 ./src/Reg_ID_EX.v
+1642509740 ./src/Reg_EX_MEM.v
+1642514094 ./src/Mux_Three.v
+1640778052 ./src/Mux.v
+1640577978 ./src/LD_Filter.v
+1640781710 ./src/JB_Unit.v
+1640780708 ./src/Imme_Ext.v
+1640576750 ./src/Decoder.v
+1671503300 ./src/Controller.v
+1671501025 ./src/ALU.v
+1671503202 CPU.v
+1535685794 /usr/cad/synopsys/vcs-mx/cur/linux64/lib/vcsdp_lite.tab
+4
+1535687234 /usr/cad/synopsys/vcs-mx/cur/linux64/lib/libvirsim.so
+1535686419 /usr/cad/synopsys/vcs-mx/cur/linux64/lib/liberrorinf.so
+1535686343 /usr/cad/synopsys/vcs-mx/cur/linux64/lib/libsnpsmalloc.so
+1535686407 /usr/cad/synopsys/vcs-mx/cur/linux64/lib/libvfs.so
+1671503796 simv.daidir
+-1 partitionlib

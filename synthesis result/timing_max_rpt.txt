@@ -1,0 +1,109 @@
+Information: Updating design information... (UID-85)
+Warning: Design 'CPU' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+        -sort_by group
+Design : CPU
+Version: Q-2019.12
+Date   : Tue Dec 20 15:11:52 2022
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: slow   Library: slow
+Wire Load Model Mode: top
+
+  Startpoint: controller/E_op_reg[4]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: reg_pc/current_pc_reg[31]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   5.00       5.00
+  clock network delay (ideal)                             0.00       5.00
+  controller/E_op_reg[4]/CK (DFFRHQX1)                    0.00 #     5.00 r
+  controller/E_op_reg[4]/Q (DFFRHQX1)                     0.62       5.62 r
+  controller/U71/Y (INVX1)                                0.11       5.73 f
+  controller/U14/Y (OR3X2)                                0.29       6.02 f
+  controller/U59/Y (INVX1)                                0.08       6.10 r
+  controller/U61/Y (NAND2X1)                              0.06       6.16 f
+  controller/U60/Y (AND2X2)                               0.18       6.34 f
+  controller/U161/Y (OR4X2)                               0.27       6.61 f
+  controller/U162/Y (OR4X2)                               0.42       7.02 f
+  controller/U8/Y (AND2X2)                                0.16       7.19 f
+  controller/E_rs1_data_sel[1] (Controller)               0.00       7.19 f
+  E_mux_rs1/s[1] (Mux_Three_0)                            0.00       7.19 f
+  E_mux_rs1/U38/Y (INVX1)                                 0.09       7.27 r
+  E_mux_rs1/U4/Y (AND2X2)                                 0.58       7.85 r
+  E_mux_rs1/U36/Y (AOI222X1)                              0.20       8.05 f
+  E_mux_rs1/U5/Y (INVX1)                                  0.14       8.19 r
+  E_mux_rs1/d[1] (Mux_Three_0)                            0.00       8.19 r
+  mux_jb/a[1] (Mux_2)                                     0.00       8.19 r
+  mux_jb/U12/Y (MX2X1)                                    0.23       8.42 r
+  mux_jb/c[1] (Mux_2)                                     0.00       8.42 r
+  jb_unit/operand1[1] (JB_Unit)                           0.00       8.42 r
+  jb_unit/add_6/A[1] (JB_Unit_DW01_add_1)                 0.00       8.42 r
+  jb_unit/add_6/U366/Y (NOR2X1)                           0.07       8.49 f
+  jb_unit/add_6/U237/Y (OAI21XL)                          0.23       8.73 r
+  jb_unit/add_6/U278/Y (AOI21X1)                          0.13       8.85 f
+  jb_unit/add_6/U226/Y (INVX1)                            0.09       8.94 r
+  jb_unit/add_6/U228/Y (NAND2X1)                          0.06       9.01 f
+  jb_unit/add_6/U229/Y (NAND2X1)                          0.12       9.13 r
+  jb_unit/add_6/U230/Y (AOI21X1)                          0.13       9.26 f
+  jb_unit/add_6/U251/Y (OAI21X1)                          0.23       9.50 r
+  jb_unit/add_6/U283/Y (AOI21X1)                          0.15       9.64 f
+  jb_unit/add_6/U236/Y (INVX1)                            0.09       9.73 r
+  jb_unit/add_6/U234/Y (NAND2X1)                          0.06       9.80 f
+  jb_unit/add_6/U235/Y (NAND2X1)                          0.12       9.92 r
+  jb_unit/add_6/U231/Y (AOI21X1)                          0.13      10.05 f
+  jb_unit/add_6/U232/Y (OAI21XL)                          0.29      10.34 r
+  jb_unit/add_6/U286/Y (AOI21X1)                          0.16      10.50 f
+  jb_unit/add_6/U243/Y (OAI21X1)                          0.24      10.74 r
+  jb_unit/add_6/U288/Y (AOI21X1)                          0.15      10.89 f
+  jb_unit/add_6/U244/Y (OAI21X1)                          0.24      11.13 r
+  jb_unit/add_6/U290/Y (AOI21X1)                          0.15      11.28 f
+  jb_unit/add_6/U245/Y (OAI21X1)                          0.24      11.52 r
+  jb_unit/add_6/U292/Y (AOI21X1)                          0.15      11.67 f
+  jb_unit/add_6/U246/Y (OAI21X1)                          0.24      11.91 r
+  jb_unit/add_6/U294/Y (AOI21X1)                          0.15      12.06 f
+  jb_unit/add_6/U247/Y (OAI21X1)                          0.24      12.30 r
+  jb_unit/add_6/U296/Y (AOI21X1)                          0.15      12.45 f
+  jb_unit/add_6/U248/Y (OAI21X1)                          0.24      12.69 r
+  jb_unit/add_6/U298/Y (AOI21X1)                          0.15      12.84 f
+  jb_unit/add_6/U249/Y (OAI21X1)                          0.24      13.08 r
+  jb_unit/add_6/U300/Y (AOI21X1)                          0.15      13.23 f
+  jb_unit/add_6/U250/Y (OAI21X1)                          0.24      13.47 r
+  jb_unit/add_6/U302/Y (AOI21X1)                          0.14      13.62 f
+  jb_unit/add_6/U238/Y (OAI21XL)                          0.20      13.81 r
+  jb_unit/add_6/U310/Y (OAI2BB1X1)                        0.21      14.03 r
+  jb_unit/add_6/U372/Y (XOR2X1)                           0.22      14.24 f
+  jb_unit/add_6/SUM[31] (JB_Unit_DW01_add_1)              0.00      14.24 f
+  jb_unit/jb_out[31] (JB_Unit)                            0.00      14.24 f
+  mux_pc/a[31] (Mux_0)                                    0.00      14.24 f
+  mux_pc/U7/Y (MX2X1)                                     0.22      14.47 f
+  mux_pc/c[31] (Mux_0)                                    0.00      14.47 f
+  reg_pc/next_pc[31] (Reg_PC)                             0.00      14.47 f
+  reg_pc/U20/Y (MX2X1)                                    0.22      14.69 f
+  reg_pc/current_pc_reg[31]/D (DFFRHQXL)                  0.00      14.69 f
+  data arrival time                                                 14.69
+
+  clock clk (rise edge)                                  15.00      15.00
+  clock network delay (ideal)                             0.00      15.00
+  reg_pc/current_pc_reg[31]/CK (DFFRHQXL)                 0.00      15.00 r
+  library setup time                                     -0.27      14.73
+  data required time                                                14.73
+  --------------------------------------------------------------------------
+  data required time                                                14.73
+  data arrival time                                                -14.69
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.04
+
+
+1

@@ -1,0 +1,16 @@
+/home/ncku_class/vsd2022/vsd202205/Final/CPU.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/ALU.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/Controller.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/Decoder.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/Imme_Ext.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/JB_Unit.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/LD_Filter.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/Mux.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/Mux_Three.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/RegFile.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/Reg_EX_MEM.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/Reg_ID_EX.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/Reg_IF_ID.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/Reg_MEM_WB.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/Reg_PC.v
+/home/ncku_class/vsd2022/vsd202205/Final/src/SRAM.v

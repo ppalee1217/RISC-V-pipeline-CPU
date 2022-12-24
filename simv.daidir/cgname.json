@@ -1,0 +1,62 @@
+{
+    "ALU": [
+        "ALU",
+        "trjvP",
+        "module",
+        1
+    ],
+    "SRAM": [
+        "SRAM",
+        "eFPF8",
+        "module",
+        8
+    ],
+    "Reg_ID_EX": [
+        "Reg_ID_EX",
+        "fpKY6",
+        "module",
+        5
+    ],
+    "Controller": [
+        "Controller",
+        "CPhEI",
+        "module",
+        2
+    ],
+    "JB_Unit": [
+        "JB_Unit",
+        "yRewc",
+        "module",
+        3
+    ],
+    "...MASTER...": [
+        "SIM",
+        "amcQw",
+        "module",
+        10
+    ],
+    "Mux": [
+        "Mux",
+        "eLVc4",
+        "module",
+        4
+    ],
+    "Reg_PC": [
+        "Reg_PC",
+        "tbz4g",
+        "module",
+        6
+    ],
+    "RegFile": [
+        "RegFile",
+        "vQSI9",
+        "module",
+        7
+    ],
+    "Top": [
+        "Top",
+        "nRdYT",
+        "module",
+        9
+    ]
+}
