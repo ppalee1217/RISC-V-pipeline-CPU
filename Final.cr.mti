@@ -1,0 +1,29 @@
+C:/Users/ppalee/Desktop/Final/Final/IM.v {1 {vlog -work work -vopt C:/Users/ppalee/Desktop/Final/Final/IM.v
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module IM
+
+Top level modules:
+	IM
+
+} {} {}} C:/Users/ppalee/Desktop/Final/Final/CPU.v {1 {vlog -work work -vopt C:/Users/ppalee/Desktop/Final/Final/CPU.v
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module ALU
+-- Compiling module Controller
+-- Compiling module Decoder
+-- Compiling module Imme_Ext
+-- Compiling module JB_Unit
+-- Compiling module LD_Filter
+-- Compiling module Mux
+-- Compiling module Mux_Three
+-- Compiling module Reg_EX_MEM
+-- Compiling module Reg_ID_EX
+-- Compiling module Reg_IF_ID
+-- Compiling module Reg_MEM_WB
+-- Compiling module Reg_PC
+-- Compiling module RegFile
+-- Compiling module CPU
+
+Top level modules:
+	CPU
+
+} {} {}}

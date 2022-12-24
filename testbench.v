@@ -7,18 +7,27 @@
 `else
   `include "CPU.v"
 `endif
-`define GOLDEN_HEX_NAME "./test/test1/golden.hex"
+`define GOLDEN_REG_HEX_NAME "./test/test2/golden_reg.hex"
+`define GOLDEN_MEM_HEX_NAME "./test/test2/golden_mem.hex"
+`define ANSWER_START 'h9000
+`define mem_word(addr) \
+  {DM.mem[addr+3], \
+   DM.mem[addr+2], \
+   DM.mem[addr+1], \
+   DM.mem[addr]}
 
 module tb;
   reg clk, rst;
   parameter CLK_PERIOD = 5;
-  parameter MAX = 1000;
+  parameter MAX = 1000000;
   always #CLK_PERIOD clk = ~clk;
 
-  integer i, err, hex_line;
+  integer gfm;    // pointer of golden_mem file
+  integer i, err, hex_line, num, totalErr;
   wire [31:0] inst_IF, dm_read_data, current_pc, reg_ex_mem_alu_out_out, reg_ex_mem_rs2_data_out;
   wire [3:0] F_im_w_en, M_dm_w_en;
-  reg [7:0] answer [0:4095];
+  reg [7:0] regVal [0:4095];
+  reg [31:0] memVal [0:1023];
 
   IM IM(
     .clk(clk),
@@ -51,9 +60,20 @@ module tb;
     initial $sdf_annotate("CPU_syn.sdf", CPU);
   `endif
 
-  // Read golden hex from file
+  // Load Golden data
   initial begin
-    $readmemh(`GOLDEN_HEX_NAME, answer);
+    // Load Golden Reg data
+    $readmemh(`GOLDEN_REG_HEX_NAME, regVal);
+    // Load Golden Mem data
+    $display("Load Golden Mem data...");
+    num = 0;
+    gfm = $fopen(`GOLDEN_MEM_HEX_NAME, "r");
+    while (!$feof(gfm)) begin
+      $fscanf(gfm, "%h\n", memVal[num]);
+      $display("memVal[%h] = %h", num, memVal[num]);
+      num = num + 1;
+    end
+    $fclose(gfm);
   end
 
   // Initialize
@@ -92,23 +112,40 @@ module tb;
         $display("Compare RegisterFile Data:");
         for(i=0; i<32; i=i+1) begin
           `ifdef syn
-            if(CPU.regfile.\registers[i] != {answer[hex_line+3],answer[hex_line+2],answer[hex_line+1],answer[hex_line]}) begin
-              $display("Error: Reg[%d] = %h, Golden = %h", i, CPU.regfile.\registers[i], {answer[hex_line+3],answer[hex_line+2],answer[hex_line+1],answer[hex_line]});
+            if(CPU.regfile.\registers[i] != {regVal[hex_line+3],regVal[hex_line+2],regVal[hex_line+1],regVal[hex_line]}) begin
+              $display("Error: Reg[%d] = %h, expect = %h", i, CPU.regfile.\registers[i], {regVal[hex_line+3],regVal[hex_line+2],regVal[hex_line+1],regVal[hex_line]});
               err = err + 1;
             end
           `else
-            if(CPU.regfile.registers[i] != {answer[hex_line+3],answer[hex_line+2],answer[hex_line+1],answer[hex_line]}) begin
-              $display("Error: Reg[%d] = %h, Golden = %h", i, CPU.regfile.registers[i], {answer[hex_line+3],answer[hex_line+2],answer[hex_line+1],answer[hex_line]});
+            if(CPU.regfile.registers[i] != {regVal[hex_line+3],regVal[hex_line+2],regVal[hex_line+1],regVal[hex_line]}) begin
+              $display("Error: Reg[%d] = %h, expect = %h", i, CPU.regfile.registers[i], {regVal[hex_line+3],regVal[hex_line+2],regVal[hex_line+1],regVal[hex_line]});
               err = err + 1;
             end
           `endif
           hex_line = hex_line + 4;
         end
+        if(err == 0) $display("No error found in RegFile.");
+        else $display("%d errors in RegFile.", err);
+        totalErr = err;
+        err = 0;
         $display("============================");
         $display("Compare Memory Data:");
-        #(clk*4);
-        if(err == 0) $display("No error found in this test.");
-        else $display("Total %d errors.", err);
+        $display("num = %d", num);
+        for (i = 0; i < num; i = i + 1) begin
+          if (`mem_word(`ANSWER_START + i*4) !== memVal[i]) begin
+            $display("DM['h%4h] = %h, expect = %h", `ANSWER_START + i*4, `mem_word(`ANSWER_START + i*4), memVal[i]);
+            err = err + 1;
+          end
+          else begin
+            $display("DM['h%4h] = %h, pass", `ANSWER_START + i*4, `mem_word(`ANSWER_START + i*4));
+          end
+        end
+        if(err == 0) $display("No error found in Memory.");
+        else $display("%d errors in Memory.", err);
+        $display("============================");
+        totalErr = totalErr + err;
+        if(totalErr == 0) $display("No error found in this test.");
+        else $display("Total %d errors.", totalErr);
         $display("----------------------");
         $display(" Simulation  finished ");
         $display("----------------------");

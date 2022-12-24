@@ -1,11 +1,17 @@
+`define DATA_HEX_NAME "./test/test2/data.hex"
+
 module DM(
     input clk,
     input [3:0] w_en,
     input [15:0] address,
     input [31:0] write_data,
     output reg [31:0] read_data
-    );
+    );10000 9000
     reg [7:0] mem [0:65535];
+    // Read instruction hex from file
+    initial begin
+      $readmemh(`DATA_HEX_NAME, mem);
+    end
     // Load(DM) or Read instructions(IM)-> Combinational
     always @(*) begin
         if (w_en == 4'b0) begin

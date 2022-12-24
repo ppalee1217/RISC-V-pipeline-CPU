@@ -1,5 +1,4 @@
-
-
+`define INST_HEX_NAME "./test/test2/mergesort.hex"
 module IM(
     input clk,
     input [3:0] w_en,
@@ -8,9 +7,13 @@ module IM(
     output reg [31:0] read_data
     );
     reg [7:0] mem [0:65535];
-
+    // Read instruction hex from file
+    initial begin
+      $readmemh(`INST_HEX_NAME, mem);
+    end
     // Load(DM) or Read instructions(IM)-> Combinational
     always @(*) begin
+        read_data = 32'bz;
         if (w_en == 4'b0) begin
             read_data = {mem[address+3], mem[address+2], mem[address+1], mem[address]};
         end

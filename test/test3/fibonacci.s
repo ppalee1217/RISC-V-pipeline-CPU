@@ -5,7 +5,7 @@ test2: .word 0
 test3: .word 10
 test4: .word 15
 test5: .word 20
-store: .word 0x00000100
+store: .word 0x9000
 .text
 setup:
   li    ra, -1
