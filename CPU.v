@@ -33,7 +33,7 @@ module CPU (
                dc_out_rs1_index, 
                dc_out_rs2_index;
     wire [2:0] dc_out_func3;
-    wire       dc_out_func7;
+    wire [6:0] dc_out_func7;
     // output
     wire stall, 
          next_pc_sel,
@@ -43,8 +43,8 @@ module CPU (
         E_alu_op1_sel,
         E_alu_op2_sel,
         W_wb_en,
-        W_wb_data_sel,
-        E_func7_C_out;
+        W_wb_data_sel;
+    wire [6:0] E_func7_C_out;
 
     wire [1:0] E_rs1_data_sel, E_rs2_data_sel;
     wire [2:0] E_func3_C_out, W_func3_C_out;

@@ -37,7 +37,7 @@ entity Controller is
         rs1_index       : in     vl_logic_vector(4 downto 0);
         rs2_index       : in     vl_logic_vector(4 downto 0);
         func3           : in     vl_logic_vector(2 downto 0);
-        func7           : in     vl_logic;
+        func7           : in     vl_logic_vector(6 downto 0);
         alu_out         : in     vl_logic;
         F_im_w_en       : out    vl_logic_vector(3 downto 0);
         D_rs1_data_sel  : out    vl_logic;
@@ -47,7 +47,7 @@ entity Controller is
         E_jb_op1_sel    : out    vl_logic;
         E_alu_op2_sel   : out    vl_logic;
         E_alu_op1_sel   : out    vl_logic;
-        E_func7_C_out   : out    vl_logic;
+        E_func7_C_out   : out    vl_logic_vector(6 downto 0);
         E_func3_C_out   : out    vl_logic_vector(2 downto 0);
         E_op_C_out      : out    vl_logic_vector(4 downto 0);
         M_dm_w_en       : out    vl_logic_vector(3 downto 0);

@@ -24,12 +24,19 @@ entity ALU is
         blt             : vl_logic_vector(0 to 2) := (Hi1, Hi0, Hi0);
         bge             : vl_logic_vector(0 to 2) := (Hi1, Hi0, Hi1);
         bltu            : vl_logic_vector(0 to 2) := (Hi1, Hi1, Hi0);
-        bgeu            : vl_logic_vector(0 to 2) := (Hi1, Hi1, Hi1)
+        bgeu            : vl_logic_vector(0 to 2) := (Hi1, Hi1, Hi1);
+        mul             : vl_logic_vector(0 to 2) := (Hi0, Hi0, Hi0);
+        div             : vl_logic_vector(0 to 2) := (Hi1, Hi0, Hi0);
+        divu            : vl_logic_vector(0 to 2) := (Hi1, Hi0, Hi1);
+        \rem\           : vl_logic_vector(0 to 2) := (Hi1, Hi1, Hi0);
+        remu            : vl_logic_vector(0 to 2) := (Hi1, Hi1, Hi1);
+        R_and_I_type    : vl_logic_vector(0 to 6) := (Hi0, Hi1, Hi0, Hi0, Hi0, Hi0, Hi0);
+        M_type          : vl_logic_vector(0 to 6) := (Hi0, Hi0, Hi0, Hi0, Hi0, Hi0, Hi1)
     );
     port(
         opcode          : in     vl_logic_vector(4 downto 0);
         func3           : in     vl_logic_vector(2 downto 0);
-        func7           : in     vl_logic;
+        func7           : in     vl_logic_vector(6 downto 0);
         operand1        : in     vl_logic_vector(31 downto 0);
         operand2        : in     vl_logic_vector(31 downto 0);
         alu_out         : out    vl_logic_vector(31 downto 0)
@@ -58,4 +65,11 @@ entity ALU is
     attribute mti_svvh_generic_type of bge : constant is 1;
     attribute mti_svvh_generic_type of bltu : constant is 1;
     attribute mti_svvh_generic_type of bgeu : constant is 1;
+    attribute mti_svvh_generic_type of mul : constant is 1;
+    attribute mti_svvh_generic_type of div : constant is 1;
+    attribute mti_svvh_generic_type of divu : constant is 1;
+    attribute mti_svvh_generic_type of \rem\ : constant is 1;
+    attribute mti_svvh_generic_type of remu : constant is 1;
+    attribute mti_svvh_generic_type of R_and_I_type : constant is 1;
+    attribute mti_svvh_generic_type of M_type : constant is 1;
 end ALU;
