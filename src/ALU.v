@@ -1,10 +1,19 @@
+`include "./src/Mul.v"
+
 module ALU(
     input [4:0] opcode,
     input [2:0] func3,
-    input       func7,
+    input [6:0] func7,
     input [31:0] operand1,
     input [31:0] operand2,
     output reg [31:0] alu_out
+    );
+
+    wire [31:0] mul_result;
+    Mul multiplier(
+        .A(operand1[15:0]),
+        .B(operand2[15:0]),
+        .product(mul_result)
     );
 
     parameter 
@@ -33,52 +42,81 @@ module ALU(
               blt     = 3'b100,
               bge     = 3'b101,
               bltu    = 3'b110,
-              bgeu    = 3'b111;
-            
+              bgeu    = 3'b111,
+            // func3 for M_extension (Still in R_type)
+              mul     = 3'b000, // Due to multiplier limitation, we only implement mul(output is 32 bits)
+              div     = 3'b100,
+              divu    = 3'b101,
+              rem     = 3'b110,
+              remu    = 3'b111,
+            // func7 for M_extension
+              R_and_I_type = 7'b0100000,
+              M_type = 7'b0000001;
 
     always @(*) begin
         case(opcode)
             I_Comp , R_type: begin
-                case(func3)
-                    Add_Sub: begin
-                        // Sub
-                        if ((opcode == R_type) && func7) begin
-                            alu_out = operand1 - operand2;
+                if((func7 == M_type) && (opcode == R_type)) begin
+                    case(func3)
+                        mul: begin
+                            alu_out = mul_result;
                         end
-                        // Add
-                        else begin
-                            alu_out = operand1 + operand2;
+                        div: begin
+                            alu_out = ($signed(operand1) / $signed(operand2));
                         end
-                    end
-                    Slt: begin
-                        alu_out = ($signed(operand1) < $signed(operand2))? 32'd1 : 32'd0;
-                    end
-                    Sltu: begin
-                        alu_out = (operand1 < operand2)? 32'd1 : 32'd0;
-                    end
-                    Xor: begin
-                        alu_out = operand1 ^ operand2;
-                    end
-                    Or: begin
-                        alu_out = operand1 | operand2;
-                    end
-                    And: begin
-                        alu_out = operand1 & operand2;
-                    end
-                    Sll: begin
-                        alu_out = operand1 << operand2[4:0];
-                    end
-                    Srl_Sra: begin
-                        // Sra
-                        if (func7) begin
-                            alu_out = $signed(operand1) >>> operand2[4:0];
+                        divu: begin
+                            alu_out = (operand1 / operand2);
                         end
-                        // Srl
-                        else begin
-                            alu_out = operand1 >> operand2[4:0];
+                        rem: begin
+                            alu_out = ($signed(operand1) % $signed(operand2));
                         end
-                    end
-                endcase
+                        remu: begin
+                            alu_out = (operand1 % operand2);
+                        end
+                    endcase
+                end
+                else begin
+                    case(func3)
+                        Add_Sub: begin
+                            // Sub
+                            if ((opcode == R_type) && (func7 == R_and_I_type)) begin
+                                alu_out = operand1 - operand2;
+                            end
+                            // Add
+                            else begin
+                                alu_out = operand1 + operand2;
+                            end
+                        end
+                        Slt: begin
+                            alu_out = ($signed(operand1) < $signed(operand2))? 32'd1 : 32'd0;
+                        end
+                        Sltu: begin
+                            alu_out = (operand1 < operand2)? 32'd1 : 32'd0;
+                        end
+                        Xor: begin
+                            alu_out = operand1 ^ operand2;
+                        end
+                        Or: begin
+                            alu_out = operand1 | operand2;
+                        end
+                        And: begin
+                            alu_out = operand1 & operand2;
+                        end
+                        Sll: begin
+                            alu_out = operand1 << operand2[4:0];
+                        end
+                        Srl_Sra: begin
+                            // Sra
+                            if ((func7) == R_and_I_type) begin
+                                alu_out = $signed(operand1) >>> operand2[4:0];
+                            end
+                            // Srl
+                            else begin
+                                alu_out = operand1 >> operand2[4:0];
+                            end
+                        end
+                    endcase
+                end
             end
             B_type: begin
                 case(func3)
@@ -134,10 +172,6 @@ module ALU(
             end
             // output operand1 + operand2
             I_Load , Store , U_auipc: begin
-                if(!U_auipc) begin
-                    $display("(Stage 3)Operand1: 0x%h, Operand2: 0x%h", operand1, operand2);
-                    $display("(Stage 3)Load/Store position: 0x%h", (operand1 + operand2));
-                end
                 alu_out = operand1 + operand2;
             end
             // output = imme

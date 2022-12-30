@@ -4,7 +4,8 @@ module Controller (
     input rst,
     input [4:0] opcode, rd_index, rs1_index, rs2_index,
     input [2:0] func3,
-    input func7, alu_out,
+    input [6:0] func7,
+    input alu_out,
     // output
     // IF stage
     output [3:0] F_im_w_en,
@@ -14,7 +15,8 @@ module Controller (
 
     // EXE stage
     output reg[1:0] E_rs1_data_sel, E_rs2_data_sel,
-    output reg E_jb_op1_sel, E_alu_op2_sel, E_alu_op1_sel, E_func7_C_out,
+    output reg E_jb_op1_sel, E_alu_op2_sel, E_alu_op1_sel,
+    output reg [6:0] E_func7_C_out,
     output reg [2:0] E_func3_C_out,
     output reg [4:0] E_op_C_out,
 
@@ -70,7 +72,7 @@ module Controller (
     reg [2:0] E_func3, M_func3, W_func3;
     reg [4:0] E_rd, M_rd, W_rd;
     reg [4:0] E_rs1, E_rs2;
-    reg E_func7;
+    reg [6:0] E_func7;
 
     
     // ID/EXE register
@@ -81,7 +83,7 @@ module Controller (
             E_rd <= 5'b00000;
             E_rs1 <= 5'b00000;
             E_rs2 <= 5'b00000;
-            E_func7 <= 0;
+            E_func7 <= 7'd0;
         end
         else if (next_pc_sel || stall) begin
             // instruction addi x0, x0, 0
@@ -90,7 +92,7 @@ module Controller (
             E_rd <= 5'b00000;
             E_rs1 <= 5'b00000;
             E_rs2 <= 5'b00000;
-            E_func7 <= 0;
+            E_func7 <= 7'd0;
         end
         else begin
             E_op <= opcode;
