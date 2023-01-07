@@ -1,6 +1,8 @@
 module Reg_MEM_WB (
     input clk,
     input rst,
+    input stall_cache,
+    input stall,
     input [31:0] alu_out_in, ld_data_in, current_pc_in,
     output reg[31:0] alu_out_out, ld_data_out, current_pc_out
     );
@@ -9,6 +11,17 @@ module Reg_MEM_WB (
             alu_out_out <= 32'd0;
             ld_data_out <= 32'd0;
             current_pc_out <= 32'd0;
+        end
+        else if(stall) begin
+            alu_out_out <= alu_out_in;
+            ld_data_out <= ld_data_in;
+            current_pc_out <= current_pc_in;
+        end
+        // cache provoked stall
+        else if (stall_cache) begin
+            alu_out_out <= alu_out_out;
+            ld_data_out <= ld_data_out;
+            current_pc_out <= current_pc_out;
         end
         else begin
             alu_out_out <= alu_out_in;

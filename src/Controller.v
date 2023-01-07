@@ -2,14 +2,14 @@ module Controller (
     // input
     input clk,
     input rst,
+    input PReady,
     input [4:0] opcode, rd_index, rs1_index, rs2_index,
     input [2:0] func3,
     input [6:0] func7,
     input alu_out,
     // output
     // IF stage
-    output [3:0] F_im_w_en,
-
+    
     // ID stage
     output reg D_rs1_data_sel, D_rs2_data_sel,
 
@@ -22,14 +22,14 @@ module Controller (
 
     // MEM stage
     output reg[3:0] M_dm_w_en,
-
+    output reg PStrobe,
     // WB stage
     output reg W_wb_en, W_wb_data_sel,
-    output [2:0] W_func3_C_out,
-    output [4:0] W_rd_index,
+    output reg [2:0] W_func3_C_out,
+    output reg [4:0] W_rd_index,
 
     // other signals
-    output reg stall, next_pc_sel
+    output reg stall, next_pc_sel, stall_cache
     );
 
     parameter 
@@ -94,6 +94,15 @@ module Controller (
             E_rs2 <= 5'b00000;
             E_func7 <= 7'd0;
         end
+        else if (stall_cache) begin
+            // instruction addi x0, x0, 0
+            E_op <= E_op;
+            E_func3 <= E_func3;
+            E_rd <= E_rd;
+            E_rs1 <= E_rs1;
+            E_rs2 <= E_rs2;
+            E_func7 <= E_func7;
+        end
         else begin
             E_op <= opcode;
             E_func3 <= func3;
@@ -111,6 +120,16 @@ module Controller (
             M_func3 <= 3'b000;
             M_rd <= 5'b00000;
         end
+        else if(stall) begin
+            M_op <= E_op;
+            M_func3 <= E_func3;
+            M_rd <= E_rd;
+        end
+        else if(stall_cache) begin
+            M_op <= M_op;
+            M_func3 <= M_func3;
+            M_rd <= M_rd;
+        end
         else begin
             M_op <= E_op;
             M_func3 <= E_func3;
@@ -125,6 +144,16 @@ module Controller (
             W_func3 <= 3'b000;
             W_rd <= 5'b00000;
         end
+        else if(stall) begin
+            W_op <= M_op;
+            W_func3 <= M_func3;
+            W_rd <= M_rd;
+        end
+        else if(stall_cache) begin
+            W_op <= W_op;
+            W_func3 <= W_func3;
+            W_rd <= W_rd;
+        end
         else begin
             W_op <= M_op;
             W_func3 <= M_func3;
@@ -136,7 +165,6 @@ module Controller (
 //// Combinational logic
 
     // -----------IF stage----------------//         
-    assign F_im_w_en = 4'b0000;
 
     //------------ID stage----------------//
     /// ID stage (D_rs1_data_sel)
@@ -329,6 +357,10 @@ module Controller (
         end
     end
 
+    always @(*) begin
+        if(M_op == Store || M_op == I_Load) PStrobe = 1'b1;
+        else PStrobe = 1'b0;
+    end
 
     // -----------WB stage----------------//
     /// WB (W_wb_en)
@@ -344,11 +376,12 @@ module Controller (
         end
     end
 
-    /// WB (W_rd_index)
-    assign W_rd_index = W_rd;
-
-    /// WB (W_func3)
-    assign W_func3_C_out = W_func3;
+    always @(*) begin
+        /// WB (W_rd_index)
+        W_rd_index = W_rd;
+        /// WB (W_func3)
+        W_func3_C_out = W_func3;
+    end
 
     /// WB (W_wb_data_sel)
     always @(*) begin
@@ -388,5 +421,15 @@ module Controller (
         end
     end
 
+    // stall_cache
+    always @ (*) begin
+        if (rst) begin
+            stall_cache = 1'b0;
+        end
+        else begin
+            if(PReady == 1'b0 && (M_op == I_Load || M_op == Store)) stall_cache = 1'b1;
+            else stall_cache = 1'b0;
+        end
+    end
 
 endmodule

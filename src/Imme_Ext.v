@@ -2,8 +2,7 @@ module Imme_Ext(
     input [31:0] inst,
     output reg [31:0] imm_ext_out
     );
-    wire [4:0] opcode;
-    assign opcode = inst[6:2];
+    wire [4:0] opcode = inst[6:2];
     parameter // opcode
               R_type  = 5'b01100,
               I_Comp  = 5'b00100,

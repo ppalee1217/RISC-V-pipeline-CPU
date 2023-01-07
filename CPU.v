@@ -16,9 +16,10 @@
 module CPU (
     input  clk, 
     input  rst,
+    input  PReady,
     input  [31:0] inst_IF,
     input  [31:0] dm_read_data,
-    output [3:0]  F_im_w_en,
+    output        PStrobe,
     output [31:0] current_pc,
     output [31:0] reg_ex_mem_alu_out_out,
     output [3:0]  M_dm_w_en,
@@ -29,7 +30,7 @@ module CPU (
     integer i;
 /// Controller
     wire [4:0] dc_out_opcode, 
-	       dc_out_rd_index, 
+	           dc_out_rd_index, 
                dc_out_rs1_index, 
                dc_out_rs2_index;
     wire [2:0] dc_out_func3;
@@ -37,20 +38,20 @@ module CPU (
     // output
     wire stall, 
          next_pc_sel,
-        D_rs1_data_sel,
-        D_rs2_data_sel,
-        E_jb_op1_sel,
-        E_alu_op1_sel,
-        E_alu_op2_sel,
-        W_wb_en,
-        W_wb_data_sel;
+         D_rs1_data_sel,
+         D_rs2_data_sel,
+         E_jb_op1_sel,
+         E_alu_op1_sel,
+         E_alu_op2_sel,
+         W_wb_en,
+         W_wb_data_sel;
     wire [6:0] E_func7_C_out;
-
+    wire stall_cache;
     wire [1:0] E_rs1_data_sel, E_rs2_data_sel;
     wire [2:0] E_func3_C_out, W_func3_C_out;
     wire [4:0] E_op_C_out, W_rd_index;
   
-    /*
+
     always @(posedge rst) begin
         if(rst) begin
             for(i=0;i<32;i=i+1) begin
@@ -58,7 +59,7 @@ module CPU (
             end
         end
     end
-    */
+
     wire [31:0] alu_out;
     Controller controller (
         // input port
@@ -71,10 +72,10 @@ module CPU (
         .rs1_index(dc_out_rs1_index),
         .rs2_index(dc_out_rs2_index),
         .alu_out(alu_out[0]),
+        .PReady(PReady),
         // output port
         .stall(stall),
         .next_pc_sel(next_pc_sel),
-        .F_im_w_en(F_im_w_en),
         .D_rs1_data_sel(D_rs1_data_sel),
         .D_rs2_data_sel(D_rs2_data_sel),
         .E_rs1_data_sel(E_rs1_data_sel),
@@ -89,7 +90,9 @@ module CPU (
         .W_wb_en(W_wb_en),
         .W_rd_index(W_rd_index),
         .W_func3_C_out(W_func3_C_out),
-        .W_wb_data_sel(W_wb_data_sel)
+        .W_wb_data_sel(W_wb_data_sel),
+        .stall_cache(stall_cache),
+        .PStrobe(PStrobe)
     );
 
 /// Mux_pc
@@ -110,7 +113,8 @@ module CPU (
         .rst(rst),
         .next_pc(next_pc),
         .current_pc(current_pc),
-        .stall(stall)
+        .stall(stall),
+        .stall_cache(stall_cache)
     );
 /// IF/ID register
     wire [31:0] inst_ID,current_pc_ID;
@@ -122,7 +126,8 @@ module CPU (
         .inst_in(inst_IF),
         .current_pc_in(current_pc),
         .inst_out(inst_ID),
-        .current_pc_out(current_pc_ID)
+        .current_pc_out(current_pc_ID),
+        .stall_cache(stall_cache)
     ); 
 /// Decoder
     Decoder decoder (
@@ -189,7 +194,8 @@ module CPU (
         .rs1_data_out(reg_id_ex_rs1_data_out),
         .rs2_data_out(reg_id_ex_rs2_data_out),
         .current_pc_out(current_pc_EX),
-        .sext_imm_out(sext_imm_out)
+        .sext_imm_out(sext_imm_out),
+        .stall_cache(stall_cache)
     );
 /// E_mux_rs1
     wire [31:0] E_mux_rs1_data_out;
@@ -254,13 +260,15 @@ module CPU (
         // input
         .clk(clk),
         .rst(rst),
+        .stall(stall),
         .alu_out_in(alu_out),
         .rs2_data_in(E_mux_rs2_data_out),
         .current_pc_in(current_pc_EX),
         // output
         .alu_out_out(reg_ex_mem_alu_out_out),
         .rs2_data_out(reg_ex_mem_rs2_data_out),
-        .current_pc_out(current_pc_MEM)
+        .current_pc_out(current_pc_MEM),
+        .stall_cache(stall_cache)
     );
 /// Reg_MEM_WB
     wire [31:0] reg_mem_wb_alu_out_out,
@@ -269,12 +277,14 @@ module CPU (
     Reg_MEM_WB reg_mem_wb (
         .clk(clk),
         .rst(rst),
+        .stall(stall),
         .alu_out_in(reg_ex_mem_alu_out_out),
         .ld_data_in(dm_read_data),
         .current_pc_in(current_pc_MEM),
         .alu_out_out(reg_mem_wb_alu_out_out),
         .ld_data_out(ld_data_out),
-        .current_pc_out(current_pc_WB)
+        .current_pc_out(current_pc_WB),
+        .stall_cache(stall_cache)
     );
 /// LD_Filter
     wire [31:0] ld_data_f;

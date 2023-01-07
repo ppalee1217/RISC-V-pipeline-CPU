@@ -5,14 +5,10 @@ module RegFile(
     input [4:0] rd_index,
     input [4:0] rs1_index,
     input [4:0] rs2_index, 
-    output [31:0] rs1_data_out,
-    output [31:0] rs2_data_out
+    output reg [31:0] rs1_data_out,
+    output reg [31:0] rs2_data_out
     );
     reg [31:0] registers [0:31];
-
-    // Combinational
-    assign rs1_data_out = registers[rs1_index];
-    assign rs2_data_out = registers[rs2_index];
 
     // Sequential
     always @(posedge clk) begin
@@ -25,5 +21,11 @@ module RegFile(
         else begin
             registers[rd_index] <= 32'd0;
         end
+    end
+
+    // Combinational
+    always @(*) begin
+        rs1_data_out = registers[rs1_index];
+        rs2_data_out = registers[rs2_index];
     end
 endmodule

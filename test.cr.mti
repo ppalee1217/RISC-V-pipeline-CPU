@@ -1,13 +1,61 @@
-C:/Users/ppalee/Desktop/Final2/Final/Final/SRAM.v {1 {vlog -work work -vopt C:/Users/ppalee/Desktop/Final2/Final/Final/SRAM.v
+C:/Users/ppalee/Desktop/Final/Final/IM.v {1 {vlog -work work -vopt C:/Users/ppalee/Desktop/Final/Final/IM.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module SRAM
+-- Compiling module IM
 
 Top level modules:
-	SRAM
+	IM
 
-} {} {}} C:/Users/ppalee/Desktop/Final2/Final/Final/testbench.v {1 {vlog -work work -vopt C:/Users/ppalee/Desktop/Final2/Final/Final/testbench.v
+} {} {}} C:/Users/ppalee/Desktop/Final/Final/CPU.v {1 {vlog -work work -vopt C:/Users/ppalee/Desktop/Final/Final/CPU.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
--- Compiling module SRAM
+-- Compiling module Booth_multiplier
+-- Compiling module Dadda
+-- Compiling module Han_Carlson
+-- Compiling module Mul
+-- Compiling module ALU
+-- Compiling module Controller
+-- Compiling module Decoder
+-- Compiling module Imme_Ext
+-- Compiling module JB_Unit
+-- Compiling module LD_Filter
+-- Compiling module Mux
+-- Compiling module Mux_Three
+-- Compiling module Reg_EX_MEM
+-- Compiling module Reg_ID_EX
+-- Compiling module Reg_IF_ID
+-- Compiling module Reg_MEM_WB
+-- Compiling module Reg_PC
+-- Compiling module RegFile
+-- Compiling module CPU
+
+Top level modules:
+	CPU
+
+} {} {}} C:/Users/ppalee/Desktop/Final/Final/Cache.v {1 {vlog -work work -vopt C:/Users/ppalee/Desktop/Final/Final/Cache.v
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module Cache
+-- Compiling module Control
+-- Compiling module DataMux
+-- Compiling module WaitStateCtr
+-- Compiling module TagRam
+-- Compiling module ValidRam
+-- Compiling module DataRam
+-- Compiling module Comparator
+
+Top level modules:
+	Cache
+
+} {} {}} C:/Users/ppalee/Desktop/Final/Final/testbench.v {1 {vlog -work work -vopt C:/Users/ppalee/Desktop/Final/Final/testbench.v
+Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
+-- Compiling module IM
+-- Compiling module DM
+-- Compiling module Cache
+-- Compiling module Control
+-- Compiling module DataMux
+-- Compiling module WaitStateCtr
+-- Compiling module TagRam
+-- Compiling module ValidRam
+-- Compiling module DataRam
+-- Compiling module Comparator
 -- Compiling module Booth_multiplier
 -- Compiling module Dadda
 -- Compiling module Han_Carlson
@@ -32,32 +80,11 @@ Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
 Top level modules:
 	tb
 
-} {} {}} C:/Users/ppalee/Desktop/Final2/Final/Final/CPU.v {2 {vlog -work work -vopt C:/Users/ppalee/Desktop/Final2/Final/Final/CPU.v
+} {} {}} C:/Users/ppalee/Desktop/Final/Final/DM.v {1 {vlog -work work -vopt C:/Users/ppalee/Desktop/Final/Final/DM.v
 Model Technology ModelSim SE-64 vlog 10.1c Compiler 2012.07 Jul 27 2012
-** Warning: (vlog-6) -- Waiting for lock by "ppalee@MSI, pid = 27580
-". Lockfile is "C:/Users/ppalee/Desktop/Final2/Final/Final/work/_lock".
-
--- Compiling module Booth_multiplier
--- Compiling module Dadda
--- Compiling module Han_Carlson
--- Compiling module Mul
--- Compiling module ALU
--- Compiling module Controller
--- Compiling module Decoder
--- Compiling module Imme_Ext
--- Compiling module JB_Unit
--- Compiling module LD_Filter
--- Compiling module Mux
--- Compiling module Mux_Three
--- Compiling module Reg_EX_MEM
--- Compiling module Reg_ID_EX
--- Compiling module Reg_IF_ID
--- Compiling module Reg_MEM_WB
--- Compiling module Reg_PC
--- Compiling module RegFile
--- Compiling module CPU
+-- Compiling module DM
 
 Top level modules:
-	CPU
+	DM
 
 } {} {}}

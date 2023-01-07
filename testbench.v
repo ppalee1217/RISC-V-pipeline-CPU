@@ -1,6 +1,8 @@
 `timescale 1ns/10ps
 
-`include "SRAM.v"
+`include "IM.v"
+`include "DM.v"
+`include "Cache.v"
 `ifdef syn
   `include "CPU_syn.v"
   `include "tsmc18.v"
@@ -10,8 +12,8 @@
 
 `define CYCLE 10.0    // Cycle time
 `define MAX 10000000  // Max cycle number
-`define prog_path "./test/inst_check/main.hex"
-`define gold_path "./test/inst_check/golden.hex"
+`define prog_path "./test/fibo/main.hex"
+`define gold_path "./test/fibo/golden.hex"
 `define ANSWER_START 'h9000
 `define mem_word(addr) \
   {DM.mem[addr+3], \
@@ -26,7 +28,7 @@ module tb;
   always #CLK_PERIOD clk = ~clk;
 
   wire [31:0] inst_IF, dm_read_data, current_pc, reg_ex_mem_alu_out_out, reg_ex_mem_rs2_data_out;
-  wire [3:0] F_im_w_en, M_dm_w_en;
+  wire [3:0] M_dm_w_en;
   reg [7:0] answer [0:4095];
   reg [31:0] GOLDEN [0:73];
 
@@ -35,31 +37,62 @@ module tb;
   integer err;              // total number of errors compared to golden data
   integer i;
   integer inst_num;
+  // Memory and Cache wire connections
+  wire PStrobe, PReady;
+  // Bidirectional buses
+  // Output dm_read_data from cache to reg_mem_wb
+  // Input from reg_ex_mem_rs2_data_out to cache
+  wire [31:0] PData_pin; 
+  assign PData_pin = (M_dm_w_en) ? reg_ex_mem_rs2_data_out : 32'hz;
+  wire [15:0] PAddress = reg_ex_mem_alu_out_out;
+  wire [3:0] PRW = M_dm_w_en;
+  
+  // Memory
+  wire        SysStrobe;
+  wire [3:0]  SysRW;
+  wire [31:0] SysData;
+  wire [15:0] SysAddress;
 
-  SRAM IM(
+  IM IM(
     .clk(clk),
-    .w_en(F_im_w_en),
+    .w_en(4'd0),
     .address(current_pc[15:0]),
     .write_data(32'd0),
     .read_data(inst_IF)
   );
-  SRAM DM(
+
+  DM DM(
     .clk(clk),
-    .w_en(M_dm_w_en),
-    .address(reg_ex_mem_alu_out_out[15:0]),
-    .write_data(reg_ex_mem_rs2_data_out),
-    .read_data(dm_read_data)
+    .w_en(SysRW),
+    .address(SysAddress),
+    .data(SysData)
   );
+
+  Cache CACHE(
+    .Clk(clk),
+    .Reset(rst),
+    .PStrobe(PStrobe),
+    .PAddress(PAddress),
+    .PData(PData_pin),
+    .PRW(PRW),
+    .PReady(PReady),
+    .SysStrobe(SysStrobe),
+    .SysAddress(SysAddress),
+    .SysData(SysData),
+    .SysRW(SysRW)
+  );
+
   CPU CPU(
     .clk(clk),
     .rst(rst),
+    .PReady(PReady),
     .inst_IF(inst_IF),
-    .dm_read_data(dm_read_data),
-    .F_im_w_en(F_im_w_en),
+    .dm_read_data(PData_pin),
     .current_pc(current_pc),
     .reg_ex_mem_alu_out_out(reg_ex_mem_alu_out_out),
     .M_dm_w_en(M_dm_w_en),
-    .reg_ex_mem_rs2_data_out(reg_ex_mem_rs2_data_out)
+    .reg_ex_mem_rs2_data_out(reg_ex_mem_rs2_data_out),
+    .PStrobe(PStrobe)
   );
 
   // SDF annotation

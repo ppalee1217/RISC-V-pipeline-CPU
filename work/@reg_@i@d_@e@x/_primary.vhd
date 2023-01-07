@@ -6,6 +6,7 @@ entity Reg_ID_EX is
         rst             : in     vl_logic;
         stall           : in     vl_logic;
         jb              : in     vl_logic;
+        stall_cache     : in     vl_logic;
         current_pc_in   : in     vl_logic_vector(31 downto 0);
         rs1_data_in     : in     vl_logic_vector(31 downto 0);
         rs2_data_in     : in     vl_logic_vector(31 downto 0);

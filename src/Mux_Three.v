@@ -1,11 +1,11 @@
 module Mux_Three (
     input [31:0] a, b, c,
     input [1:0] s,
-    output [31:0] d
+    output reg [31:0] d
     );
-    assign d = (s == 2'd0) ? a :
-               (s == 2'd1) ? b :
-               c;
+    always @(*) begin
+        d = (s == 2'd0) ? a : (s == 2'd1) ? b : c;
+    end
 endmodule
 
 //      | \

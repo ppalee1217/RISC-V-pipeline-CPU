@@ -32,6 +32,7 @@ entity Controller is
     port(
         clk             : in     vl_logic;
         rst             : in     vl_logic;
+        PReady          : in     vl_logic;
         opcode          : in     vl_logic_vector(4 downto 0);
         rd_index        : in     vl_logic_vector(4 downto 0);
         rs1_index       : in     vl_logic_vector(4 downto 0);
@@ -39,7 +40,6 @@ entity Controller is
         func3           : in     vl_logic_vector(2 downto 0);
         func7           : in     vl_logic_vector(6 downto 0);
         alu_out         : in     vl_logic;
-        F_im_w_en       : out    vl_logic_vector(3 downto 0);
         D_rs1_data_sel  : out    vl_logic;
         D_rs2_data_sel  : out    vl_logic;
         E_rs1_data_sel  : out    vl_logic_vector(1 downto 0);
@@ -51,12 +51,14 @@ entity Controller is
         E_func3_C_out   : out    vl_logic_vector(2 downto 0);
         E_op_C_out      : out    vl_logic_vector(4 downto 0);
         M_dm_w_en       : out    vl_logic_vector(3 downto 0);
+        PStrobe         : out    vl_logic;
         W_wb_en         : out    vl_logic;
         W_wb_data_sel   : out    vl_logic;
         W_func3_C_out   : out    vl_logic_vector(2 downto 0);
         W_rd_index      : out    vl_logic_vector(4 downto 0);
         stall           : out    vl_logic;
-        next_pc_sel     : out    vl_logic
+        next_pc_sel     : out    vl_logic;
+        stall_cache     : out    vl_logic
     );
     attribute mti_svvh_generic_type : integer;
     attribute mti_svvh_generic_type of R_type : constant is 1;

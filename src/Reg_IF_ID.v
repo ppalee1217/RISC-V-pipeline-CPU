@@ -2,6 +2,7 @@ module Reg_IF_ID (
     input clk,
     input rst,
     input stall,
+    input stall_cache,
     input jb,
     input [31:0] current_pc_in, inst_in,
     output reg[31:0] inst_out, current_pc_out
@@ -19,6 +20,10 @@ module Reg_IF_ID (
         end
         // stall the cpu => do not update out data
         else if (stall) begin
+            inst_out <= inst_out;
+            current_pc_out <= current_pc_out;
+        end
+        else if (stall_cache) begin
             inst_out <= inst_out;
             current_pc_out <= current_pc_out;
         end
